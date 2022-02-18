@@ -17,14 +17,14 @@ export class FeedReaderApp extends App {
 
     constructor(info: IAppInfo, logger: ILogger, accessors: IAppAccessors) {
         super(info, logger, accessors);
-        this.feedManager = new FeedManager(info.id, accessors.reader, accessors.http)
+        this.feedManager = new FeedManager(info.id)
     }
 
     public async extendConfiguration(configuration: IConfigurationExtend, environmentRead: IEnvironmentRead): Promise<void> {
         // configuration.scheduler.registerProcessors([
         //     {
         //         id: 'feed-reader',
-        //         processor: async (feeds) => this.feedManager.read(feeds, this),
+        //         processor: async () => this.feedManager.readFeeds(),
         //         startupSetting: {
         //           type: StartupType.RECURRING,
         //           interval: '60 seconds',
@@ -32,7 +32,7 @@ export class FeedReaderApp extends App {
         //     },
         // ]);
 
-        const feedCommand: FeedCommand = new FeedCommand(this)
+        const feedCommand: FeedCommand = new FeedCommand(this.feedManager)
         await configuration.slashCommands.provideSlashCommand(feedCommand)
     }
 }

@@ -1,6 +1,5 @@
 import { IHttp, IModify, IPersistence, IRead } from '@rocket.chat/apps-engine/definition/accessors';
 import { ISlashCommand, SlashCommandContext } from '@rocket.chat/apps-engine/definition/slashcommands';
-import { FeedReaderApp } from '../FeedReaderApp';
 import { FeedManager } from '../lib/FeedManager';
 
 export class FeedCommand implements ISlashCommand {
@@ -9,27 +8,28 @@ export class FeedCommand implements ISlashCommand {
     public i18nDescription: string = 'Manage RSS/Atom feeds';
     public providesPreview: boolean = false;
 
-    private readonly app: FeedReaderApp;
+    private readonly feedManager: FeedManager;
 
-    constructor(app: FeedReaderApp) {
-        this.app = app
+    constructor(feedManager: FeedManager) {
+        this.feedManager = feedManager
     }
 
     public async executor(context: SlashCommandContext, read: IRead, modify: IModify, http: IHttp, persistence: IPersistence): Promise<void> {
         const [subcommand, target] = context.getArguments();
+        this.feedManager.setProperties(context, read, modify, http, persistence)
 
         switch (subcommand) {
             case 'list':
-                await this.app.feedManager.list(context, modify);
+                await this.feedManager.list();
                 break;
             case 'remove':
-                await this.app.feedManager.remove(target, context, modify, persistence);
+                await this.feedManager.remove(target);
                 break;
             case 'subscribe':
-                await this.app.feedManager.subscribe(target, context, modify, persistence);
+                await this.feedManager.subscribe(target);
                 break;
             default:
-                await this.app.feedManager.help(context, modify);
+                await this.feedManager.help();
                 break;
         }
     }
