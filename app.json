@@ -12,5 +12,31 @@
     "nameSlug": "feed-reader",
     "classFile": "FeedReaderApp.ts",
     "description": "A simple RSS/Atom feed reader for Rocket.Chat.",
-    "implements": []
+    "implements": [],
+    "permissions": [
+        {
+            "name": "user.read"
+        },
+        {
+            "name": "server-setting.read"
+        },
+        {
+            "name": "room.read"
+        },
+        {
+            "name": "message.read"
+        },
+        {
+            "name": "message.write"
+        },
+        {
+            "name": "slashcommand"
+        },
+        {
+            "name": "persistence"
+        },
+        {
+            "name": "scheduler"
+        }
+    ]
 }
