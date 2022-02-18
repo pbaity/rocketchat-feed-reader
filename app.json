@@ -1,7 +1,7 @@
 {
     "id": "b80cacec-b1cb-41a0-9ab8-22ad7cac6a31",
     "version": "0.0.1",
-    "requiredApiVersion": "^1.4.0",
+    "requiredApiVersion": "^1.19.0",
     "iconFile": "icon.png",
     "author": {
         "name": "Paul Baity",
@@ -11,5 +11,6 @@
     "name": "Feed Reader",
     "nameSlug": "feed-reader",
     "classFile": "FeedReaderApp.ts",
-    "description": "A simple RSS/Atom feed reader for Rocket.Chat."
+    "description": "A simple RSS/Atom feed reader for Rocket.Chat.",
+    "implements": []
 }
